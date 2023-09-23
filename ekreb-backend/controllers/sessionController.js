@@ -14,11 +14,23 @@ export const endSession = (req, res) => {
   if (session) {
     const {score, attempts} = session;
     delete activeSessions[sessionId];
+    // TODO helper function extract all frontend needed stats from session
     res.json({ score: score, attempts: attempts });
   } else {
     res.status(404).send('Session not found.');
   }
 };
+
+export const fetchSession = (req, res, ) => {
+  const { sessionId } = req.params;
+  const session = activeSessions[sessionId];
+  if (session) {
+    const {score, attempts, currentWord} = session;
+    res.json({ score: score, attempts: attempts, currentWord: currentWord });
+  } else {
+    res.status(404).send('Session not found.');
+  }
+}
 
 export const getSession = (sessionId) => {
   return activeSessions[sessionId];

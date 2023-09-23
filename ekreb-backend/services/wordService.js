@@ -3,6 +3,7 @@ import { readWordsFromCSV } from '../utils/csvReader.js';
 import { apiConfig } from '../config/apiConfig.js';
 
 // keep track of a list words for each session to pick from
+// TODO: no need for each session. Just one list of words for the whole app
 let sessionWordsList = {};
 
 const nextWord = (words) => {
