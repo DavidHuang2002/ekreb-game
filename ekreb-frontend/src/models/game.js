@@ -1,4 +1,4 @@
-import {checkGuess, endSession, getScrambledWord, getHint} from "../services/api";
+import {checkGuess, endSession, getScrambledWord, getHint, fetchSession} from "../services/api";
 import {message} from "antd";
 
 const initialGameStats = {
@@ -7,6 +7,10 @@ const initialGameStats = {
   score: 0,
 
   hint: "",
+}
+
+const isNewGame = (sessionInfo) => {
+  return sessionInfo.round === 0;
 }
 
 export default {
@@ -30,16 +34,23 @@ export default {
         type: 'updateSessionId',
         payload: sessionId,
       });
+
+      const res = yield call(fetchSession, sessionId);
       yield put({
         type: 'updateState',
         payload: {
-          ...initialGameStats,
+          ...res,
         },
       });
-      
-      yield put({
-        type: 'startRound',
-      })
+      console.log("fecth session", res, );
+
+       // if we are in a new game, start the first round.
+       // if we are in a game that has already started, we just keep playing
+      if(isNewGame(res)) {
+        yield put({
+          type: 'startRound',
+        })
+      }   
     },
 
     *endGame(_, { call, put, select }) {
@@ -61,7 +72,7 @@ export default {
         type: 'updateState',
         payload: {
           scrambledWord: res.scrambledWord,
-          round: round + 1,
+          round: res.round,
           // resetting guessed values
           guessValues: [],
 

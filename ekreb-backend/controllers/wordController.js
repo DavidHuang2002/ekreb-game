@@ -5,7 +5,6 @@ export const getScrambledWord = async (req, res) => {
   const { sessionId } = req.params;
   const session = getSession(sessionId);
   if (!session) {
-    // TODO duplicate code
     res.status(404).send('Session not found.');
     return;
   }
@@ -14,9 +13,13 @@ export const getScrambledWord = async (req, res) => {
   session.currentWord = word;
   // resetting the hint
   session.hint = "";
+  // incrementing round - assuming we only call this method when we are ready to start a new round
+  // in other words, no skipping words within one round
+  session.round += 1;
 
   const scrambledWord = scrambleWord(word);
-  res.json({ scrambledWord });
+  session.scrambledWord = scrambledWord;
+  res.json({ scrambledWord, round: session.round });
 };
 
 export const checkGuess = (req, res) => {
