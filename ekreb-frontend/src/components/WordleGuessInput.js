@@ -1,18 +1,16 @@
-import React, { useRef, useEffect } from 'react';
-import { Input } from 'antd';
+import React, { useEffect, useState } from 'react';
+import { Input, Button } from 'antd';
 import { connect } from 'dva';
 
 const GuessInput = ({ dispatch, guessValues, scrambledWordLength }) => {
-  const inputRefs = Array.from({ length: scrambledWordLength }, () => useRef(null));
+  const [inputRefs, setInputRefs] = useState([]);
 
+  useEffect(() => {
+    setInputRefs((inputRefs) => Array(scrambledWordLength).fill().map((_, i) => inputRefs[i] || React.createRef()));
+  }, [scrambledWordLength]);
 
   const handleInputChange = (e, index) => {
     const value = e.target.value;
-
-    if (/[^a-zA-Z]/.test(value)) {
-      return;
-    }
-
     guessValues[index] = value;
 
     if (index < scrambledWordLength - 1 && value !== "") {
@@ -25,23 +23,40 @@ const GuessInput = ({ dispatch, guessValues, scrambledWordLength }) => {
     });
   };
 
+  const handleSubmit = () => {
+    const guess = guessValues.join("");
+    dispatch({
+      type: 'game/submitGuess',
+      guess,
+    });
+  }
+
   return (
-    <div style={{
+    <div>
+      <div style={{
       display: 'flex', 
       justifyContent: 'center', 
       alignItems: 'center', 
       gap: '15px'
-    }}>
-      {inputRefs.map((ref, i) => (
-        <Input
-          ref={ref}
-          key={i}
-          maxLength={1}
-          style={{ width: '60px', height: '60px', textAlign: 'center', fontSize: '2em' }}
-          value={guessValues[i]}
-          onChange={(e) => handleInputChange(e, i)}
-        />
-      ))}
+      }}>
+        {inputRefs.map((ref, i) => (
+          <Input
+            ref={ref}
+            key={i}
+            maxLength={1}
+            style={{ width: '60px', height: '60px', textAlign: 'center', fontSize: '2em' }}
+            value={guessValues[i]}
+            onChange={(e) => handleInputChange(e, i)}
+          />
+        ))}
+      </div>
+      <Button 
+        type='primary'
+        style={{marginTop: "30px"}}
+        onClick={handleSubmit}
+      >
+        Submit
+      </Button>
     </div>
   );
 };

@@ -17,7 +17,7 @@ export default {
     attempts: 0,
     score: 0,
     scrambledWord: '',
-    guessValues: "",
+    guessValues: [],
 
     hint: "",
 
@@ -62,6 +62,10 @@ export default {
         payload: {
           scrambledWord: res.scrambledWord,
           round: round + 1,
+          // resetting guessed values
+          guessValues: [],
+
+          hint: "",
         },
       });
     },

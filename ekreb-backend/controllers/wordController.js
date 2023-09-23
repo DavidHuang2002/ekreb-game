@@ -11,7 +11,10 @@ export const getScrambledWord = async (req, res) => {
   }
 
   const word = await getRandomWord(sessionId);
-  getSession(sessionId).currentWord = word;
+  session.currentWord = word;
+  // resetting the hint
+  session.hint = "";
+
   const scrambledWord = scrambleWord(word);
   res.json({ scrambledWord });
 };

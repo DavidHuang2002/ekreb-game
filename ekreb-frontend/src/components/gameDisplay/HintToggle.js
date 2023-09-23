@@ -17,9 +17,16 @@ const onlyFirstLetterRevealed = hint => {
 }
 
 const HintToggle = ({hint, dispatch}) =>{
-  const handleChange = () => {
+  const handleChange = keys => {
+    // do nothing when it is just collapsing down to avoid accidental hint between two rounds of game
+    const isCollapseDown = keys.length == 0;
+    if(isCollapseDown) return;
+
     console.log("toggle");
+    
+    // if we already have hint then do nothing, the logic for more hint is handled by the link
     if(hint) return;
+
     dispatch({
       type: 'game/getHint',
     })
@@ -32,6 +39,7 @@ const HintToggle = ({hint, dispatch}) =>{
   }
 
   const displayHint = () => {
+    if(!hint || hint == "") return "";
     if(onlyFirstLetterRevealed(hint)){
       return `the word starts with the letter ${hint[0]}`
     } else {
@@ -42,7 +50,7 @@ const HintToggle = ({hint, dispatch}) =>{
   return (
     <Collapse 
       ghost 
-      onChange={()=>{handleChange()}}
+      onChange={(keys)=>{handleChange(keys)}}
     >
       <Panel header="Wanna some hint?" key="1">
         <p>{displayHint(hint)}</p>

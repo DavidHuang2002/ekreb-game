@@ -75,8 +75,8 @@ const GamePage = ({ game, loading, match, history, dispatch,}) => {
               <div style={{marginBottom: "20px"}}>
                 <HintToggle/>
               </div>
-              {/* <WordleGuessInput /> */}
-              <BasicGuessInput />
+              <WordleGuessInput />
+              {/* <BasicGuessInput /> */}
         </Content>
         <GameStatsModal
           onClose = {
