@@ -1,14 +1,6 @@
 David Huang
 david.j.huang@vanderbilt.edu
 
-We may need additional information about reading or running your program
-We want to you to include a brief (under 100 words) reflection about the code you wrote
-We are interested in any feedback you provide about the project and a reflection on the code you wrote
-If you did finish the exercise but would like to provide some ination about what you may have gotten done with more time or experience, and which steps you struggled with.
-BONUS QUESTION (this is NOT extra points): Let's put your un-scrambling skills to the test...can you guess what the unscrambled version of "ekreb" is?
-Feel free to share anything else you want to tell us! This does include funny little jokes. I can neither confirm nor deny that funny little jokes can count toward bonus points (they unfortunately do not).
-
-
 ## How to run the program
 
 ### front end
