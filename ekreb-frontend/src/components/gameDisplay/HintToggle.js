@@ -41,7 +41,7 @@ const HintToggle = ({hint, dispatch}) =>{
   const displayHint = () => {
     if(!hint || hint == "") return "";
     if(onlyFirstLetterRevealed(hint)){
-      return `the word starts with the letter ${hint[0]}`
+      return `ok, listen up, the word starts with the letter ${hint[0]}`
     } else {
       return `the word is in the format of ${hint.replaceAll("_", " _ ")}`
     }
@@ -52,10 +52,10 @@ const HintToggle = ({hint, dispatch}) =>{
       ghost 
       onChange={(keys)=>{handleChange(keys)}}
     >
-      <Panel header="Wanna some hint?" key="1">
+      <Panel header="beg me, and maybe I will give you some hints" key="1">
         <p>{displayHint(hint)}</p>
         
-        <Link onClick={()=>{handleMoreHint()}}>I'm stuck! More hints please!</Link>
+        <Link onClick={()=>{handleMoreHint()}}>I'm stuck! I can't play without hints! Give me more please!</Link>
       </Panel>
     </Collapse>
   );

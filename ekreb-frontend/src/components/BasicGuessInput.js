@@ -1,6 +1,14 @@
 import { Input } from "antd";
 import { connect } from "dva";
 
+/**
+ * @deprecated
+ * A component for inputting guesses. It has the same functionality as WordleGuessInput
+ * I developed it since I did not know how long the wordle input will take me to develop
+ * keeping it here just in case for future use
+ * To use it, simply change the default value of guessValues in game.js from [] to ""
+ */
+
 const GuessInput = ({ dispatch, scrambledWordLength, guessValues}) => {
   const handleGuess = (guess) => {
     dispatch({

@@ -3,7 +3,7 @@ import { readWordsFromCSV } from '../utils/csvReader.js';
 import { apiConfig } from '../config/apiConfig.js';
 
 // keep track of a list words for each session to pick from
-// TODO: no need for each session. Just one list of words for the whole app
+// TODO: no need a separate word list for each session. Just one list of words for the whole app
 let sessionWordsList = {};
 
 const nextWord = (words) => {
@@ -18,8 +18,8 @@ export async function getRandomWord(sessionId) {
   return nextWord(sessionWordsList[sessionId]);
 }
 
-// TODO comment
 export const scrambleWord = (word) => {
+  // shuffling an array by sorting it with a random number between -0.5 and 0.5
   return word.split('').sort(() => Math.random() - 0.5).join('');
 };
 
@@ -60,11 +60,11 @@ const hintRevealPosition = (word, hint, position) => {
 
 async function populateWords(sessionId, numWords) {
     try {
-      // TODO add a time out 
+      // TODO add a time out so that when user didn't exit game properly, we can still terminate
+      // to avoid memory leak
       console.log('Reading from API for session: ', sessionId);
       sessionWordsList[sessionId] = await readFromAPI(numWords);
     } catch (error) {
-      // TODO - test the csv reader
       console.log('Failed to read from API, reading from CSV instead.');
       sessionWordsList[sessionId] = readWordsFromCSV('./data/english-words.csv', numWords);
     }

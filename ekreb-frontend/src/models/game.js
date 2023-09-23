@@ -56,7 +56,6 @@ export default {
     *endGame(_, { call, put, select }) {
       const {sessionId} = yield select(state => state.game);
       const res = yield call(endSession, sessionId);
-      // TODO: handle error for request
       yield put({
         type: 'updateState',
         payload: {
