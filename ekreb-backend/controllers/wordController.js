@@ -1,4 +1,4 @@
-import { getRandomWord, scrambleWord } from '../services/wordService.js';
+import { getRandomWord, scrambleWord, updateHint } from '../services/wordService.js';
 import { getSession } from './sessionController.js';
 
 export const getScrambledWord = async (req, res) => {
@@ -13,7 +13,6 @@ export const getScrambledWord = async (req, res) => {
   const word = await getRandomWord(sessionId);
   getSession(sessionId).currentWord = word;
   const scrambledWord = scrambleWord(word);
-  session
   res.json({ scrambledWord });
 };
 
@@ -33,3 +32,15 @@ export const checkGuess = (req, res) => {
     res.json({ correct: false, score: session.score, attempts: session.attempts });
   }
 };
+
+export const getHint = (req, res) => {
+  const { sessionId } = req.params;
+  const session = getSession(sessionId);
+  if (!session) {
+    res.status(404).send('Session not found.');
+    return;
+  }
+
+  session.hint = updateHint(session.hint, session.currentWord);
+  res.json({ hint: session.hint });
+}

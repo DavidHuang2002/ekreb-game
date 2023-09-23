@@ -21,6 +21,7 @@ export const endSession = (req, res) => {
   }
 };
 
+// TODO make the method or delete it
 export const fetchSession = (req, res, ) => {
   const { sessionId } = req.params;
   const session = activeSessions[sessionId];
@@ -41,6 +42,7 @@ const createSession = (sessionId) => {
     currentWord: '',
     score: 0,
     attempts: 0,
+    hint: ""
   };
 };
 

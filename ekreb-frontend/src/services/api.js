@@ -10,6 +10,10 @@ const apiWrapper = async (apiCall, errorMsg) => {
   }
 };
 
+export const getHint = async (sessionId) => {
+  return await apiWrapper(() => http.get(`/hint/${sessionId}`), 'Error getting hint');
+};
+
 export const startSession = async () => {
   return await apiWrapper(() => http.get('/start'), 'Error starting session');
 };

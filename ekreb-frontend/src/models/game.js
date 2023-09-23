@@ -1,10 +1,12 @@
-import {checkGuess, endSession, getScrambledWord} from "../services/api";
+import {checkGuess, endSession, getScrambledWord, getHint} from "../services/api";
 import {message} from "antd";
 
 const initialGameStats = {
   round: 0,
   attempts: 0,
   score: 0,
+
+  hint: "",
 }
 
 export default {
@@ -16,6 +18,8 @@ export default {
     score: 0,
     scrambledWord: '',
     guessValues: "",
+
+    hint: "",
 
     gameStatsModleVisible: false,
   },
@@ -58,6 +62,17 @@ export default {
         payload: {
           scrambledWord: res.scrambledWord,
           round: round + 1,
+        },
+      });
+    },
+
+    *getHint(_, { call, put, select }) {
+      const {sessionId} = yield select(state => state.game);
+      const res = yield call(getHint, sessionId);
+      yield put({
+        type: 'updateState',
+        payload: {
+          hint: res.hint,
         },
       });
     },
