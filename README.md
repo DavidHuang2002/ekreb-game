@@ -3,7 +3,7 @@ david.j.huang@vanderbilt.edu
 
 # EKREB - a word guessing game
 
-This game was created for the programming challenge of Change Plus Plus club. It is a word guessing game where the user tries to guess a word by guessing letters.
+This game was created for the programming challenge of Change Plus Plus club. It is a scrambled word guessing game where the user tries to guess a word by looking at its scrambled letters.
 
 ## Demo
 
